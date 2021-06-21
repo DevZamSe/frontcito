@@ -1232,7 +1232,7 @@ UsuariosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](16, "mat-form-field", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](17, "mat-label");
-        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](18, "Enter your password");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](18, "Contrase\u00F1a");
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](19, "input", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](20, "button", 11);
@@ -2511,11 +2511,17 @@ class ModalClientEditComponent {
         event.preventDefault();
         if (this.userForm.valid) {
             const user = this.userForm.value;
-            user['clienteid'] = this.data.ID_CLIENTE;
+            user['clientid'] = this.data.ID_CLIENTE;
+            console.log(this.data.ID_CLIENTE);
             console.log(user);
             this.clientesService.editClients(user)
                 .subscribe((response) => {
-                console.log(response);
+                if (response) {
+                    this.dialogRef.close(true);
+                }
+                else {
+                    this.dialogRef.close(false);
+                }
             });
         }
     }
