@@ -1178,12 +1178,17 @@ class UsuariosComponent {
         let data = {
             userid: id,
         };
+        console.log(data);
         this.usuariosService.deleteUser(data).subscribe((rpta) => {
-            const index = this.dataSource.findIndex((user) => {
-                user.ID_USUARIO == id;
-            });
-            this.dataSource.splice(index, 1);
-            this.dataSource = [...this.dataSource];
+            this.getData();
+            // const index = this.dataSource.findIndex((user) => {
+            //   user.ID_USUARIO === parseInt(id);
+            //   console.log( user.ID_USUARIO);
+            //   console.log( id);
+            // });
+            // console.log(index);
+            // this.dataSource.splice(index, 1);
+            // this.dataSource = [...this.dataSource];
         });
     }
     openDialog(row) {
@@ -1204,7 +1209,7 @@ class UsuariosComponent {
     }
 }
 UsuariosComponent.ɵfac = function UsuariosComponent_Factory(t) { return new (t || UsuariosComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](src_app_src_shared_services_auth_login_service__WEBPACK_IMPORTED_MODULE_4__["LoginService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_services_usuarios_usuarios_service__WEBPACK_IMPORTED_MODULE_5__["UsuariosService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__["MatDialog"])); };
-UsuariosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: UsuariosComponent, selectors: [["app-usuarios"]], decls: 67, vars: 12, consts: [[1, "container"], [1, "content"], [1, "botones"], ["mat-raised-button", "", 3, "click"], [1, "formulario"], [3, "formGroup", "ngSubmit"], [1, "formu"], [1, "Formcontent"], ["appearance", "fill"], ["placeholder", "Usuario", "formControlName", "username", "matInput", "", "type", "text"], ["matInput", "", 3, "type"], ["mat-icon-button", "", "matSuffix", "", 3, "click"], ["placeholder", "Nombre", "formControlName", "nombre", "matInput", "", "type", "text"], ["placeholder", "Apellido", "formControlName", "apellido", "matInput", "", "type", "text"], ["placeholder", "Tipo de usuario", "formControlName", "userType", "matInput", "", "type", "text"], ["mat-raised-button", "", "type", "submit", 3, "disabled"], [1, "lista"], [1, "filter"], ["matInput", "", "placeholder", "Filtrar", 3, "ngModel", "keyup", "ngModelChange"], ["input", ""], [1, "mat-elevation-z8"], ["id", "excel-usuarios", "mat-table", "", 3, "dataSource"], ["matColumnDef", "ID"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "Nombre"], ["matColumnDef", "Apellido"], ["matColumnDef", "Fecha de Creaci\u00F3n"], ["matColumnDef", "Opcions"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["showFirstLastButtons", "", 3, "pageSizeOptions"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-raised-button", "", 1, "mr-1", 3, "click"], ["mat-raised-button", "", "color", "warn", 3, "click"], ["mat-header-row", ""], ["mat-row", ""]], template: function UsuariosComponent_Template(rf, ctx) { if (rf & 1) {
+UsuariosComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: UsuariosComponent, selectors: [["app-usuarios"]], decls: 67, vars: 12, consts: [[1, "container"], [1, "content"], [1, "botones"], ["mat-raised-button", "", 3, "click"], [1, "formulario"], [3, "formGroup", "ngSubmit"], [1, "formu"], [1, "Formcontent"], ["appearance", "fill"], ["placeholder", "Usuario", "formControlName", "username", "matInput", "", "type", "text"], ["formControlName", "password", "matInput", "", 3, "type"], ["mat-icon-button", "", "matSuffix", "", 3, "click"], ["placeholder", "Nombre", "formControlName", "nombre", "matInput", "", "type", "text"], ["placeholder", "Apellido", "formControlName", "apellido", "matInput", "", "type", "text"], ["placeholder", "Tipo de usuario", "formControlName", "userType", "matInput", "", "type", "text"], ["mat-raised-button", "", "type", "submit", 3, "disabled"], [1, "lista"], [1, "filter"], ["matInput", "", "placeholder", "Filtrar", 3, "ngModel", "keyup", "ngModelChange"], ["input", ""], [1, "mat-elevation-z8"], ["id", "excel-usuarios", "mat-table", "", 3, "dataSource"], ["matColumnDef", "ID"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "Nombre"], ["matColumnDef", "Apellido"], ["matColumnDef", "Fecha de Creaci\u00F3n"], ["matColumnDef", "Opcions"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], ["showFirstLastButtons", "", 3, "pageSizeOptions"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-raised-button", "", 1, "mr-1", 3, "click"], ["mat-raised-button", "", "color", "warn", 3, "click"], ["mat-header-row", ""], ["mat-row", ""]], template: function UsuariosComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](2, "div", 2);
@@ -2176,11 +2181,12 @@ class ClientesComponent {
         };
         this.clientesService.deleteClients(data).subscribe((rpta) => {
             console.log(rpta);
-            const index = this.dataSource.findIndex((user) => {
-                user.id_cliente == id;
-            });
-            this.dataSource.splice(index, 1);
-            this.dataSource = [...this.dataSource];
+            this.getData();
+            // const index = this.dataSource.findIndex((user) => {
+            //   user.id_cliente == id;
+            // });
+            // this.dataSource.splice(index, 1);
+            // this.dataSource = [...this.dataSource];
         });
     }
     openDialog(row) {
@@ -3017,12 +3023,13 @@ class VentasComponent {
             salesid: id,
         };
         this.ventasService.delete(data).subscribe((rpta) => {
-            console.log(rpta);
-            const index = this.dataSource.findIndex((venta) => {
-                venta.ID_CLIENTE == id;
-            });
-            this.dataSource.splice(index, 1);
-            this.dataSource = [...this.dataSource];
+            this.getData();
+            // console.log(rpta);
+            // const index = this.dataSource.findIndex((venta) => {
+            //   venta.ID_CLIENTE == id;
+            // });
+            // this.dataSource.splice(index, 1);
+            // this.dataSource = [...this.dataSource];
         });
     }
     exportexcel() {
@@ -3357,12 +3364,13 @@ class InventarioComponent {
             productid: id,
         };
         this.productsService.deleteProduct(data).subscribe((rpta) => {
-            console.log(rpta);
-            const index = this.dataSource.findIndex((product) => {
-                product.ID_PRODUCTO == id;
-            });
-            this.dataSource.splice(index, 1);
-            this.dataSource = [...this.dataSource];
+            this.getData();
+            // console.log(rpta);
+            // const index = this.dataSource.findIndex((product) => {
+            //   product.ID_PRODUCTO == id;
+            // });
+            // this.dataSource.splice(index, 1);
+            // this.dataSource = [...this.dataSource];
         });
     }
     exportexcel() {
@@ -4003,12 +4011,13 @@ class OrdencompraComponent {
         };
         console.log(data);
         this.purchasesService.deletePurchases(data).subscribe((rpta) => {
-            console.log(rpta);
-            const index = this.dataSource.findIndex((orden) => {
-                orden.ID_PRODUCTO == id;
-            });
-            this.dataSource.splice(index, 1);
-            this.dataSource = [...this.dataSource];
+            this.getData();
+            // console.log(rpta);
+            // const index = this.dataSource.findIndex((orden) => {
+            //   orden.ID_PRODUCTO == id;
+            // });
+            // this.dataSource.splice(index, 1);
+            // this.dataSource = [...this.dataSource];
         });
     }
     exportexcel() {
