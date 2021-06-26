@@ -1480,31 +1480,212 @@ AuthRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefine
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! chart.js */ "MO+k");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var src_app_src_shared_data_chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/src/shared/data/chart */ "xu9M");
+/* harmony import */ var src_app_src_shared_pipes_randomColor_random_color_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/src/shared/pipes/randomColor/random-color.pipe */ "XHGS");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _shared_services_reports_reports_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../shared/services/reports/reports.service */ "3epn");
+
+
+
+
 
 class HomeComponent {
-    constructor() { }
+    constructor(reportsService) {
+        this.reportsService = reportsService;
+        this.displayedColumns = [
+            'compras',
+            'dinero_ventas',
+            'mes',
+            'ventas',
+        ];
+        this.datos = [];
+        this.dataSource = this.datos;
+        this.labels = src_app_src_shared_data_chart__WEBPACK_IMPORTED_MODULE_1__["ChartData"];
+        this.compras = 0;
+        this.ventas = 0;
+        this.ganancia = '';
+    }
     ngOnInit() {
+        this.getData();
+    }
+    getData() {
+        this.reportsService.listReport().subscribe((datos) => {
+            this.datita = JSON.parse(JSON.stringify(datos));
+            console.log(this.datita);
+            this.dataSource = this.datita.mensual;
+            console.log('tmr', this.dataSource);
+            this.createLineChart();
+            this.createLineChart2();
+            this.createLineChart3();
+        });
+    }
+    createLineChart() {
+        this.canvas = document.getElementById('myChart');
+        this.ctx = this.canvas.getContext('2d');
+        let chart = new chart_js__WEBPACK_IMPORTED_MODULE_0__(this.ctx, {
+            type: 'bar',
+            data: {
+                labels: this.labels,
+                datasets: [
+                    {
+                        label: 'Reporte Ganancia',
+                        data: this.forData(),
+                        backgroundColor: new src_app_src_shared_pipes_randomColor_random_color_pipe__WEBPACK_IMPORTED_MODULE_2__["RandomColorPipe"]().transform(),
+                        fill: false,
+                        borderWidth: 2,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'First chart',
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: true,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                },
+            },
+        });
+    }
+    createLineChart2() {
+        this.canvas = document.getElementById('myChart2');
+        this.ctx = this.canvas.getContext('2d');
+        let chart = new chart_js__WEBPACK_IMPORTED_MODULE_0__(this.ctx, {
+            type: 'bar',
+            data: {
+                labels: this.labels,
+                datasets: [
+                    {
+                        label: 'Reporte Ventas',
+                        data: this.forData2(),
+                        backgroundColor: new src_app_src_shared_pipes_randomColor_random_color_pipe__WEBPACK_IMPORTED_MODULE_2__["RandomColorPipe"]().transform(),
+                        fill: false,
+                        borderWidth: 2,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'First chart',
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: true,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                },
+            },
+        });
+    }
+    createLineChart3() {
+        this.canvas = document.getElementById('myChart3');
+        this.ctx = this.canvas.getContext('2d');
+        let chart = new chart_js__WEBPACK_IMPORTED_MODULE_0__(this.ctx, {
+            type: 'bar',
+            data: {
+                labels: this.labels,
+                datasets: [
+                    {
+                        label: 'Reporte Compras',
+                        data: this.forData3(),
+                        backgroundColor: new src_app_src_shared_pipes_randomColor_random_color_pipe__WEBPACK_IMPORTED_MODULE_2__["RandomColorPipe"]().transform(),
+                        fill: false,
+                        borderWidth: 2,
+                    },
+                ],
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'First chart',
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: true,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true,
+                },
+            },
+        });
+    }
+    forData() {
+        var data = [];
+        for (let index = 0; index < this.dataSource.length; index++) {
+            data.push(this.dataSource[index].dinero_ventas);
+            this.ganancia = this.ventas + this.dataSource[index].dinero_ventas;
+        }
+        return data;
+    }
+    forData2() {
+        var data = [];
+        for (let index = 0; index < this.dataSource.length; index++) {
+            data.push(this.dataSource[index].ventas);
+            this.ventas = this.ventas + this.dataSource[index].ventas;
+        }
+        return data;
+    }
+    forData3() {
+        var data = [];
+        for (let index = 0; index < this.dataSource.length; index++) {
+            data.push(this.dataSource[index].compras);
+            this.compras = this.compras + this.dataSource[index].compras;
+        }
+        return data;
     }
 }
-HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(); };
-HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], decls: 9, vars: 0, template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "section");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h1");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Cantidad de ventas");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "section");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "h1");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Stock actual");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "section");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "h1");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Usuarios registrados");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJob21lLmNvbXBvbmVudC5zY3NzIn0= */"] });
+HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_shared_services_reports_reports_service__WEBPACK_IMPORTED_MODULE_4__["ReportsService"])); };
+HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], decls: 20, vars: 3, consts: [[1, "container"], [1, "fix"], ["id", "myChart", 1, "canvas1"], ["id", "myChart2", 1, "canvas1"], ["id", "myChart3", 1, "canvas1"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "section");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](2, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](3, "h1");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](4, "Ventas totales");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](5, "h4");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](7, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](8, "h1");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](9, "Compras totales");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](10, "h4");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](12, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](13, "h1");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](14, "Ganancia neta");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](15, "h4");
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtext"](16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](17, "canvas", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](18, "canvas", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelement"](19, "canvas", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementEnd"]();
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx.ventas);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate"](ctx.compras);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵtextInterpolate1"]("S/ ", ctx.ganancia, "");
+    } }, styles: ["table[_ngcontent-%COMP%] {\n  width: 100%;\n}\n\n.container[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n}\n\n.content[_ngcontent-%COMP%] {\n  margin: 3rem 2rem;\n}\n\n.totales[_ngcontent-%COMP%] {\n  margin-top: 2rem;\n}\n\nsection[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: row;\n  margin-bottom: 2rem;\n}\n\nsection[_ngcontent-%COMP%]   .fix[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  border-radius: 1rem;\n  padding-left: 1.2rem;\n  padding-top: 1rem;\n  padding-right: 3rem;\n  background: #ff4081;\n  color: aliceblue;\n  margin-left: 3rem;\n  margin-top: 1rem;\n  margin-right: 3rem;\n}\n\nsection[_ngcontent-%COMP%]   .fix[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  margin-bottom: 0.4rem;\n}\n\nbutton[_ngcontent-%COMP%], mat-card-title[_ngcontent-%COMP%], mat-label[_ngcontent-%COMP%], input[_ngcontent-%COMP%], h1[_ngcontent-%COMP%], mat-header-cell[_ngcontent-%COMP%], mat-cell[_ngcontent-%COMP%], th[_ngcontent-%COMP%], td[_ngcontent-%COMP%], button[_ngcontent-%COMP%], mat-paginator[_ngcontent-%COMP%] {\n  font-family: \"Ubuntu\", sans-serif;\n}\n\n  .mat-paginator-page-size {\n  display: none !important;\n}\n\n  .mat-paginator-range-label {\n  display: none !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL2hvbWUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFBO0FBQ0Y7O0FBQ0E7RUFDRSxXQUFBO0VBQ0EsWUFBQTtBQUVGOztBQUFBO0VBQ0UsaUJBQUE7QUFHRjs7QUFEQTtFQUNFLGdCQUFBO0FBSUY7O0FBREE7RUFDRSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxtQkFBQTtBQUlGOztBQUZFO0VBQ0UsYUFBQTtFQUNBLHNCQUFBO0VBQ0EsbUJBQUE7RUFDQSxvQkFBQTtFQUNBLGlCQUFBO0VBQ0EsbUJBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0FBSUo7O0FBRkk7RUFDRSxxQkFBQTtBQUlOOztBQUNBOzs7Ozs7Ozs7OztFQVdFLGlDQUFBO0FBRUY7O0FBQUE7RUFDRSx3QkFBQTtBQUdGOztBQUFBO0VBQ0Usd0JBQUE7QUFHRiIsImZpbGUiOiJob21lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGFibGUge1xuICB3aWR0aDogMTAwJTtcbn1cbi5jb250YWluZXIge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuLmNvbnRlbnQge1xuICBtYXJnaW46IDNyZW0gMnJlbTtcbn1cbi50b3RhbGVzIHtcbiAgbWFyZ2luLXRvcDogMnJlbTtcbn1cblxuc2VjdGlvbiB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gIG1hcmdpbi1ib3R0b206IDJyZW07XG5cbiAgLmZpeCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGJvcmRlci1yYWRpdXM6IDFyZW07XG4gICAgcGFkZGluZy1sZWZ0OiAxLjJyZW07XG4gICAgcGFkZGluZy10b3A6IDFyZW07XG4gICAgcGFkZGluZy1yaWdodDogM3JlbTtcbiAgICBiYWNrZ3JvdW5kOiAjZmY0MDgxO1xuICAgIGNvbG9yOiBhbGljZWJsdWU7XG4gICAgbWFyZ2luLWxlZnQ6IDNyZW07XG4gICAgbWFyZ2luLXRvcDogMXJlbTtcbiAgICBtYXJnaW4tcmlnaHQ6IDNyZW07XG5cbiAgICBoMSB7XG4gICAgICBtYXJnaW4tYm90dG9tOiAwLjRyZW07XG4gICAgfVxuICB9XG59XG5cbmJ1dHRvbixcbm1hdC1jYXJkLXRpdGxlLFxubWF0LWxhYmVsLFxuaW5wdXQsXG5oMSxcbm1hdC1oZWFkZXItY2VsbCxcbm1hdC1jZWxsLFxudGgsXG50ZCxcbmJ1dHRvbixcbm1hdC1wYWdpbmF0b3Ige1xuICBmb250LWZhbWlseTogXCJVYnVudHVcIiwgc2Fucy1zZXJpZjtcbn1cbjo6bmctZGVlcCAubWF0LXBhZ2luYXRvci1wYWdlLXNpemUge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbjo6bmctZGVlcCAubWF0LXBhZ2luYXRvci1yYW5nZS1sYWJlbCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbiJdfQ== */"] });
 
 
 /***/ }),
@@ -2439,6 +2620,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "admin", function() { return admin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "client", function() { return client; });
 const superadmin = [
+    { id: 0, name: 'Inicio' },
     { id: 1, name: 'Usuario' },
     { id: 2, name: 'Clientes' },
     { id: 3, name: 'Ventas' },
@@ -2449,6 +2631,7 @@ const superadmin = [
     { id: 8, name: 'Cerrar Sesión' },
 ];
 const admin = [
+    { id: 0, name: 'Inicio' },
     { id: 1, name: 'Usuario' },
     { id: 2, name: 'Clientes' },
     { id: 3, name: 'Ventas' },
@@ -2456,6 +2639,7 @@ const admin = [
     { id: 8, name: 'Cerrar Sesión' },
 ];
 const client = [
+    { id: 0, name: 'Inicio' },
     { id: 6, name: 'Orden de compra' },
     { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
