@@ -33,13 +33,14 @@ class ModalForgetPasswordComponent {
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormControl"](''),
         });
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     resetPassword(event) {
-        console.log(this.userForm.value);
-        this.loginService.resetPassword(this.userForm.value).subscribe((response) => {
+        //console.logthis.userForm.value);
+        this.loginService
+            .resetPassword(this.userForm.value)
+            .subscribe((response) => {
             if (response) {
-                console.log(response);
+                //console.logresponse);
                 this.dialogRef.close(true);
             }
             else {
@@ -816,7 +817,7 @@ class PrediccionComponent {
         this.canvas = document.getElementById('myChart');
         this.ctx = this.canvas.getContext('2d');
         let chart = new chart_js__WEBPACK_IMPORTED_MODULE_1__["Chart"](this.ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: this.labels,
                 datasets: [
@@ -1225,7 +1226,7 @@ class UsuariosComponent {
     }
     getData() {
         this.authService.listUser().subscribe((datos) => {
-            console.log(datos);
+            //console.logdatos);
             this.datos = JSON.parse(JSON.stringify(datos))
                 .response;
             this.dataSource = this.datos;
@@ -1235,9 +1236,9 @@ class UsuariosComponent {
         event.preventDefault();
         if (this.userForm.valid) {
             const user = this.userForm.value;
-            console.log(user);
+            //console.loguser);
             this.usuariosService.createUser(user).subscribe((response) => {
-                console.log(response);
+                //console.logresponse);
                 // this.router.navigate(['./admin/products']);
                 this.userForm.reset();
                 this.getData();
@@ -1265,21 +1266,21 @@ class UsuariosComponent {
         let data = {
             userid: id,
         };
-        console.log(data);
+        //console.logdata);
         this.usuariosService.deleteUser(data).subscribe((rpta) => {
             this.getData();
             // const index = this.dataSource.findIndex((user) => {
             //   user.ID_USUARIO === parseInt(id);
-            //   console.log( user.ID_USUARIO);
-            //   console.log( id);
+            //   //console.log user.ID_USUARIO);
+            //   //console.log id);
             // });
-            // console.log(index);
+            // //console.logindex);
             // this.dataSource.splice(index, 1);
             // this.dataSource = [...this.dataSource];
         });
     }
     openDialog(row) {
-        console.log(row);
+        //console.logrow);
         const editModal = this.dialog.open(_modals_modal_usuario_edit_modal_usuario_edit_component__WEBPACK_IMPORTED_MODULE_1__["ModalUsuarioEditComponent"], {
             data: row,
             minWidth: '400px',
@@ -1485,7 +1486,7 @@ class LoginComponent {
             this.authService.onSave(data);
             this.route.navigate([`dashboard`]);
         }, (error) => {
-            console.log(error);
+            //console.logerror);
             // this.route.navigate([``]);
             window.location.reload;
         });
@@ -1635,9 +1636,8 @@ class HomeComponent {
     getData() {
         this.reportsService.listReport().subscribe((datos) => {
             this.datita = JSON.parse(JSON.stringify(datos));
-            console.log(this.datita);
+            //console.logthis.datita);
             this.dataSource = this.datita.mensual;
-            console.log('tmr', this.dataSource);
             this.createLineChart();
             this.createLineChart2();
             // this.createLineChart3();
@@ -2630,7 +2630,7 @@ class ClientesComponent {
     }
     getData() {
         this.clientesService.listClients().subscribe((datos) => {
-            console.log(datos);
+            //console.logdatos);
             this.datos = JSON.parse(JSON.stringify(datos))
                 .response;
             this.dataSource = this.datos;
@@ -2640,9 +2640,9 @@ class ClientesComponent {
         event.preventDefault();
         if (this.userForm.valid) {
             const client = this.userForm.value;
-            console.log(client);
+            //console.logclient);
             this.clientesService.addClients(client).subscribe((response) => {
-                console.log(response);
+                //console.logresponse);
                 // this.router.navigate(['./admin/products']);
                 this.userForm.reset();
                 this.getData();
@@ -2663,9 +2663,9 @@ class ClientesComponent {
         let data = {
             clientid: id,
         };
-        console.log(data);
+        //console.logdata);
         this.clientesService.deleteClients(data).subscribe((rpta) => {
-            console.log(rpta);
+            //console.logrpta);
             this.getData();
             // const index = this.dataSource.findIndex((user) => {
             //   user.id_cliente == id;
@@ -2675,7 +2675,7 @@ class ClientesComponent {
         });
     }
     openDialog(row) {
-        console.log(row);
+        //console.logrow);
         const editModal = this.dialog.open(_modals_modal_client_edit_modal_client_edit_component__WEBPACK_IMPORTED_MODULE_2__["ModalClientEditComponent"], {
             data: row,
             minWidth: '400px',
@@ -3003,15 +3003,17 @@ const superadmin = [
     { id: 8, name: 'Cerrar Sesión' },
 ];
 const admin = [
-    { id: 0, name: 'Inicio' },
-    { id: 1, name: 'Usuario' },
+    // { id: 0, name: 'Inicio' },
+    // { id: 1, name: 'Usuario' },
     { id: 2, name: 'Clientes' },
     { id: 3, name: 'Ventas' },
-    { id: 4, name: 'Predicción' },
+    { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
 ];
 const client = [
-    { id: 0, name: 'Inicio' },
+    // { id: 0, name: 'Inicio' },
+    { id: 4, name: 'Predicción' },
+    { id: 5, name: 'Reportes' },
     { id: 6, name: 'Orden de compra' },
     { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
@@ -3075,7 +3077,7 @@ class ModalClientEditComponent {
         });
     }
     ngOnInit() {
-        console.log(this.data);
+        //console.logthis.data);
         this.userForm.patchValue({
             nombre: this.data.NOMBRE,
             apellido: this.data.APELLIDO,
@@ -3094,10 +3096,9 @@ class ModalClientEditComponent {
         if (this.userForm.valid) {
             const user = this.userForm.value;
             user['clientid'] = this.data.ID_CLIENTE;
-            console.log(this.data.ID_CLIENTE);
-            console.log(user);
-            this.clientesService.editClients(user)
-                .subscribe((response) => {
+            //console.logthis.data.ID_CLIENTE);
+            //console.loguser);
+            this.clientesService.editClients(user).subscribe((response) => {
                 if (response) {
                     this.dialogRef.close(true);
                 }
@@ -3592,7 +3593,7 @@ class VentasComponent {
     getProducts() {
         this.productsService.listProducts().subscribe((datos) => {
             this.productos = JSON.parse(JSON.stringify(datos)).response;
-            console.log(this.productos);
+            //console.logthis.productos);
         });
     }
     getClientes() {
@@ -3611,9 +3612,9 @@ class VentasComponent {
     saveSale() {
         if (this.userForm.valid) {
             const sale = this.userForm.value;
-            console.log(sale);
+            //console.logsale);
             this.ventasService.add(sale).subscribe((response) => {
-                console.log(response);
+                //console.logresponse);
                 // this.router.navigate(['./admin/products']);
                 this.userForm.reset();
                 this.getData();
@@ -3626,7 +3627,7 @@ class VentasComponent {
         };
         this.ventasService.delete(data).subscribe((rpta) => {
             this.getData();
-            // console.log(rpta);
+            // //console.logrpta);
             // const index = this.dataSource.findIndex((venta) => {
             //   venta.ID_CLIENTE == id;
             // });
@@ -3956,9 +3957,9 @@ class InventarioComponent {
         event.preventDefault();
         if (this.userForm.valid) {
             const product = this.userForm.value;
-            console.log(product);
+            //console.logproduct);
             this.productsService.addProduct(product).subscribe((response) => {
-                console.log(response);
+                //console.logresponse);
                 // this.router.navigate(['./admin/products']);
                 this.userForm.reset();
                 this.getData();
@@ -3975,7 +3976,7 @@ class InventarioComponent {
         };
         this.productsService.deleteProduct(data).subscribe((rpta) => {
             this.getData();
-            // console.log(rpta);
+            // //console.logrpta);
             // const index = this.dataSource.findIndex((product) => {
             //   product.ID_PRODUCTO == id;
             // });
@@ -4140,7 +4141,7 @@ class ReportesComponent {
     getData() {
         this.reportsService.listReport().subscribe((datos) => {
             this.datita = JSON.parse(JSON.stringify(datos));
-            console.log(this.datita);
+            //console.logthis.datita);
             this.compras = this.datita.compras_anual;
             this.ventas = this.datita.ventas_anual;
             this.dataSource = this.datita.mensual;
@@ -4158,7 +4159,7 @@ class ReportesComponent {
                 labels: this.labels,
                 datasets: [
                     {
-                        label: 'Reporte Mensual',
+                        label: 'Ingreso anual',
                         data: this.forData(),
                         backgroundColor: new src_app_src_shared_pipes_randomColor_random_color_pipe__WEBPACK_IMPORTED_MODULE_2__["RandomColorPipe"]().transform(),
                         fill: false,
@@ -4191,7 +4192,7 @@ class ReportesComponent {
                 labels: this.labels,
                 datasets: [
                     {
-                        label: 'Reporte Ventas',
+                        label: 'Ventas mensual',
                         data: this.forData2(),
                         backgroundColor: new src_app_src_shared_pipes_randomColor_random_color_pipe__WEBPACK_IMPORTED_MODULE_2__["RandomColorPipe"]().transform(),
                         fill: false,
@@ -4763,9 +4764,9 @@ class OrdencompraComponent {
     savePurchase() {
         if (this.userForm.valid) {
             const purchase = this.userForm.value;
-            console.log(purchase);
+            //console.logpurchase);
             this.purchasesService.addPurchases(purchase).subscribe((response) => {
-                console.log(response);
+                //console.logresponse);
                 // this.router.navigate(['./admin/products']);
                 this.getData();
                 this.userForm.reset();
@@ -4784,10 +4785,10 @@ class OrdencompraComponent {
         let data = {
             productid: id,
         };
-        console.log(data);
+        //console.logdata);
         this.purchasesService.deletePurchases(data).subscribe((rpta) => {
             this.getData();
-            // console.log(rpta);
+            // //console.logrpta);
             // const index = this.dataSource.findIndex((orden) => {
             //   orden.ID_PRODUCTO == id;
             // });
@@ -4848,7 +4849,7 @@ OrdencompraComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](29, "mat-card-actions");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](30, "button", 14);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](31, " Guardar ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtext"](31, " Enviar ");
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
@@ -4974,7 +4975,7 @@ class ModalUsuarioEditComponent {
         });
     }
     ngOnInit() {
-        console.log(this.data);
+        //console.logthis.data);
         this.editForm.patchValue({
             username: this.data.USERNAME,
             nombre: this.data.NOMBRE,
@@ -4986,11 +4987,10 @@ class ModalUsuarioEditComponent {
         event.preventDefault();
         if (this.editForm.valid) {
             const user = this.editForm.value;
-            console.log(this.data.ID_USUARIO);
+            //console.logthis.data.ID_USUARIO);
             user['userid'] = this.data.ID_USUARIO;
-            console.log(user);
-            this.usuariosService.editUser(user)
-                .subscribe((response) => {
+            //console.loguser);
+            this.usuariosService.editUser(user).subscribe((response) => {
                 if (response) {
                     this.dialogRef.close(true);
                 }
