@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\LUIS\Escritorio\tesis\src\polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! /Users/macbook/Desktop/web/angular/pmpwml-front/src/polyfills.ts */"hN/g");
 
 
 /***/ }),
