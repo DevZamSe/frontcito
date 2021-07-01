@@ -1626,9 +1626,9 @@ class HomeComponent {
         this.datos = [];
         this.dataSource = this.datos;
         this.labels = src_app_src_shared_data_chart__WEBPACK_IMPORTED_MODULE_1__["ChartData"];
-        this.compras = 0;
-        this.ventas = 0;
         this.ganancia = '';
+        this.ventas = '';
+        this.compras = '';
     }
     ngOnInit() {
         this.getData();
@@ -1636,7 +1636,9 @@ class HomeComponent {
     getData() {
         this.reportsService.listReport().subscribe((datos) => {
             this.datita = JSON.parse(JSON.stringify(datos));
-            //console.logthis.datita);
+            this.ganancia = this.datita.mensual[6].dinero_ventas;
+            this.ventas = this.datita.mensual[6].ventas;
+            this.compras = this.datita.mensual[6].compras;
             this.dataSource = this.datita.mensual;
             //console.log'tmr', this.dataSource);
             this.createLineChart();
@@ -1748,7 +1750,6 @@ class HomeComponent {
         var data = [];
         for (let index = 0; index < this.dataSource.length; index++) {
             data.push(this.dataSource[index].dinero_ventas);
-            this.ganancia = this.ventas + this.dataSource[index].dinero_ventas;
         }
         return data;
     }
@@ -1756,7 +1757,6 @@ class HomeComponent {
         var data = [];
         for (let index = 0; index < this.dataSource.length; index++) {
             data.push(this.dataSource[index].ventas);
-            this.ventas = this.ventas + this.dataSource[index].ventas;
         }
         return data;
     }
@@ -1764,7 +1764,6 @@ class HomeComponent {
         var data = [];
         for (let index = 0; index < this.dataSource.length; index++) {
             data.push(this.dataSource[index].compras);
-            this.compras = this.compras + this.dataSource[index].compras;
         }
         return data;
     }
