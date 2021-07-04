@@ -2991,6 +2991,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "superadmin", function() { return superadmin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "admin", function() { return admin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "client", function() { return client; });
+// 1
 const superadmin = [
     { id: 0, name: 'Inicio' },
     { id: 1, name: 'Usuario' },
@@ -3002,16 +3003,15 @@ const superadmin = [
     { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
 ];
+// 2
 const admin = [
-    // { id: 0, name: 'Inicio' },
-    // { id: 1, name: 'Usuario' },
     { id: 2, name: 'Clientes' },
     { id: 3, name: 'Ventas' },
     { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
 ];
+// 3
 const client = [
-    { id: 3, name: 'Ventas' },
     { id: 4, name: 'Predicción' },
     { id: 5, name: 'Reportes' },
     { id: 6, name: 'Orden de compra' },
