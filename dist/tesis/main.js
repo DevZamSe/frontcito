@@ -3005,16 +3005,16 @@ const superadmin = [
 ];
 // 2
 const admin = [
-    { id: 2, name: 'Clientes' },
-    { id: 3, name: 'Ventas' },
+    { id: 4, name: 'Predicción' },
+    { id: 5, name: 'Reportes' },
+    { id: 6, name: 'Orden de compra' },
     { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
 ];
 // 3
 const client = [
-    { id: 4, name: 'Predicción' },
-    { id: 5, name: 'Reportes' },
-    { id: 6, name: 'Orden de compra' },
+    { id: 2, name: 'Clientes' },
+    { id: 3, name: 'Ventas' },
     { id: 7, name: 'Producto' },
     { id: 8, name: 'Cerrar Sesión' },
 ];
