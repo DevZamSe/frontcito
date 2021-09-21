@@ -14,3 +14,4 @@ COPY . .
 
 EXPOSE 80
 CMD ["node","server.js"]
+ENTRYPOINT ["node", "server.js", "0.0.0.0:80"]
