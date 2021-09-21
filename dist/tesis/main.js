@@ -1634,16 +1634,15 @@ class HomeComponent {
         this.getData();
     }
     getData() {
+        let day = new Date().getMonth();
         this.reportsService.listReport().subscribe((datos) => {
             this.datita = JSON.parse(JSON.stringify(datos));
-            this.ganancia = this.datita.mensual[6].dinero_ventas;
-            this.ventas = this.datita.mensual[6].ventas;
-            this.compras = this.datita.mensual[6].compras;
+            this.ganancia = this.datita.mensual[day].dinero_ventas;
+            this.ventas = this.datita.mensual[day].ventas;
+            this.compras = this.datita.mensual[day].compras;
             this.dataSource = this.datita.mensual;
-            //console.log'tmr', this.dataSource);
             this.createLineChart();
             this.createLineChart2();
-            // this.createLineChart3();
         });
     }
     createLineChart() {
